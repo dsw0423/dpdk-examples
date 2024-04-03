@@ -34,7 +34,7 @@ timer0_cb(__rte_unused struct rte_timer *tim,
 
 	/* this timer is automatically reloaded until we decide to
 	 * stop it, when counter reaches 20. */
-	if ((counter ++) == 20)
+	if ((counter ++) == 2)
 		rte_timer_stop(tim);
 }
 /* >8 End of timer0 callback. */
@@ -112,9 +112,9 @@ main(int argc, char **argv)
 	rte_timer_reset(&timer0, hz, PERIODICAL, lcore_id, timer0_cb, NULL);
 
 	/* load timer1, every second/3, on next lcore, reloaded manually */
-	lcore_id = rte_get_next_lcore(lcore_id, 0, 1);
+ 	lcore_id = rte_get_next_lcore(lcore_id, 0, 1);
 	rte_timer_reset(&timer1, hz/3, SINGLE, lcore_id, timer1_cb, NULL);
-
+ 
 	/* >8 End of two timers configured. */
 
 	/* Call lcore_mainloop() on every worker lcore. 8< */

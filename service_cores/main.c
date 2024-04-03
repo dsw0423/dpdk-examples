@@ -69,7 +69,7 @@ struct profile {
 static struct profile profiles[] = {
 	/* profile 0: high performance */
 	{
-		.name = "High Performance",
+		.name = "把每个服务注册到单独的逻辑核上",
 		.num_cores = 5,
 		.cores[0] = {.mapped_services = {1, 0, 0, 0, 0} },
 		.cores[1] = {.mapped_services = {0, 1, 0, 0, 0} },
@@ -204,24 +204,24 @@ main(int argc, char **argv)
 	}
 
 	i = 0;
-	while (1) {
+//	while (1) { 
 		const char clr[] = { 27, '[', '2', 'J', '\0' };
 		const char topLeft[] = { 27, '[', '1', ';', '1', 'H', '\0' };
 		printf("%s%s", clr, topLeft);
 
 		apply_profile(i);
-		printf("\n==> Profile: %s\n\n", profiles[i].name);
+		printf("\n==> %s\n\n", profiles[i].name);
 
 		rte_delay_us_sleep(1 * US_PER_S);
 		rte_service_dump(stdout, UINT32_MAX);
 
-		rte_delay_us_sleep(5 * US_PER_S);
-		rte_service_dump(stdout, UINT32_MAX);
+/* 		rte_delay_us_sleep(5 * US_PER_S);
+		rte_service_dump(stdout, UINT32_MAX); */
 
-		i++;
+/* 		i++;
 		if (i >= NUM_PROFILES)
-			i = 0;
-	}
+			i = 0; */
+//	}
 
 	/* clean up the EAL */
 	rte_eal_cleanup();
